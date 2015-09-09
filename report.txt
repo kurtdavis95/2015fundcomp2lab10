@@ -1,0 +1,26 @@
+Kurt Davis
+4/17/15
+Lab 10 Report
+
+	Using "$ time wordenum": Total runtime = 26.560s on student00
+
+	The only required user interaction for this program is the program call. From the command line, the
+user calls the program by entering "$ postlab <file1> <file2>". The two arguments are the pair of files
+for the program to compare.
+	In order to simplify the file type detection, the program assumes that, if the file is an html file,
+the first line will be "<html>" or "<!DOCTYPE html>". Additionally, the program treats spaces (or in the case
+of html files, html tags) as the only delimiters between words. This mean that, as an example, the string
+"word.Here" would be read as "wordhere", while "word. Here" would be "word" and "here".
+	The program works by opening two file streams, one for each file. Next, the first line of each file is
+read in and parsed for the html start tags. In the case of a plaintext, each line is parsed in until the end 
+of file is reached. Strings are constructed from the lines one character at a time and added to a multiset
+for each file. For html, the same is done, with tags acting as delimiters (string construction does not take
+place within <>'s). If the "a href=" tag is found, the address following is extracted from the tag and added
+to another set, which holds all of the unique addresses within each file. After the files are read, any empty
+strings are removed from the aforementioned data structures. The set of words is used to create maps with
+the strings as keys and the counts for each word as values. The Algorithm library's set_intersection and 
+set_union are called with these maps, and the results are used to calculate and output the Jaccard similarity.
+The similarity is calculated regardless of file types so a plaintext can be compared with an html file.
+	The program was verified by running it with several pairs of files with known wordcounts and 
+manually calculated Jaccard similarity values. The program produced the expected output, therefore it was
+verified to be correctly functioning.
